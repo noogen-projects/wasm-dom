@@ -1,3 +1,3 @@
-# WASM web helpers
+# WASM DOM helpers
 
-The helper suite for writing WebAssembly web modules.
+The helpers for manipulate DOM within WebAssembly.
