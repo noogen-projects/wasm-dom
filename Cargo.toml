@@ -14,6 +14,7 @@ keywords = ["noogen", "web", "helpers", "dom"]
 categories = ["web-programming", "wasm"]
 
 [dependencies]
+thiserror = "1.0"
 js-sys = "0.3"
 wasm-bindgen = "0.2"
 
