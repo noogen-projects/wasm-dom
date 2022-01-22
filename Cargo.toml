@@ -1,0 +1,27 @@
+[package]
+name = "wasm-web-helpers"
+version = "0.1.0"
+authors = [
+    "Alexander Mescheryakov <freecoder.xx@gmail.com>",
+    "Noogen Team <info.noogen@gmail.com>",
+]
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/noogen-projects/wasm-web-helpers"
+description = "The helper suite for writing WebAssembly web modules"
+keywords = ["noogen", "web", "helpers", "dom"]
+categories = ["web-programming", "wasm"]
+
+[dependencies]
+js-sys = "0.3"
+wasm-bindgen = "0.2"
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+    "Document",
+    "Element",
+    "WebSocket",
+    "Window",
+]

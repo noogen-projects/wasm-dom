@@ -1,2 +1,3 @@
-# wasm-web-helpers
+# WASM web helpers
+
 The helper suite for writing WebAssembly web modules.
