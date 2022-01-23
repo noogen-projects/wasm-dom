@@ -1,6 +1,6 @@
-use wasm_bindgen::{UnwrapThrowExt, throw_str, JsCast, JsValue};
-use web_sys::{Document, Window};
 use js_sys::Reflect;
+use wasm_bindgen::{throw_str, JsCast, JsValue, UnwrapThrowExt};
+use web_sys::{Document, Window};
 
 pub trait JsObjectAccess {
     fn get(&self, property: impl Into<JsValue>) -> JsValue;
@@ -36,8 +36,23 @@ pub fn get_element_by_id<T: JsCast>(id: &str) -> T {
 pub fn select_element<T: JsCast>(selectors: &str) -> T {
     document()
         .query_selector(selectors)
-        .unwrap_or_else(|value| throw_str(&format!("Specified selectors = `{}` is invalid: {:?}", selectors, value)))
-        .unwrap_or_else(|| throw_str(&format!("Document should have an element accessible by selectors = `{}`", selectors)))
+        .unwrap_or_else(|value| {
+            throw_str(&format!(
+                "Specified selectors = `{}` is invalid: {:?}",
+                selectors, value
+            ))
+        })
+        .unwrap_or_else(|| {
+            throw_str(&format!(
+                "Document should have an element accessible by selectors = `{}`",
+                selectors
+            ))
+        })
         .dyn_into::<T>()
-        .unwrap_or_else(|element| throw_str(&format!("Element to select by `{}` should cast to target type: {:?}", selectors, element)))
+        .unwrap_or_else(|element| {
+            throw_str(&format!(
+                "Element to select by `{}` should cast to target type: {:?}",
+                selectors, element
+            ))
+        })
 }

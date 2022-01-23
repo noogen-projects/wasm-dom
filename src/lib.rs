@@ -1,10 +1,10 @@
 pub mod error;
 pub mod existing;
 
-pub use wasm_bindgen::{UnwrapThrowExt, JsCast, JsValue};
-pub use web_sys::{Document, Window};
-pub use js_sys::Reflect;
 pub use crate::error::*;
+pub use js_sys::Reflect;
+pub use wasm_bindgen::{JsCast, JsValue, UnwrapThrowExt};
+pub use web_sys::{Document, Window};
 
 pub fn window() -> Result<Window> {
     web_sys::window().ok_or(Error::WindowNotFound)

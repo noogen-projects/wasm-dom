@@ -1,5 +1,5 @@
-use web_sys::Element;
 use thiserror::Error;
+use web_sys::Element;
 
 pub type Result<T> = std::result::Result<T, Error>;
 
