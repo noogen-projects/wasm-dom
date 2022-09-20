@@ -11,6 +11,9 @@ pub enum Error {
     #[error("Document not found")]
     DocumentNotFound,
 
+    #[error("Location not found")]
+    LocationNotFound,
+
     #[error("Specified selectors `{0}` is invalid")]
     InvalidSelectors(String),
 

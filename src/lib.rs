@@ -1,10 +1,11 @@
 pub mod error;
 pub mod existing;
 
-pub use crate::error::*;
-pub use js_sys::Reflect;
-pub use wasm_bindgen::{JsCast, JsValue, UnwrapThrowExt};
-pub use web_sys::{Document, Window};
+pub use js_sys::{self, Reflect};
+pub use wasm_bindgen::{self, JsCast, JsValue, UnwrapThrowExt};
+pub use web_sys::{Document, Location, Window};
+
+pub use crate::error::{Error, Result};
 
 pub fn window() -> Result<Window> {
     web_sys::window().ok_or(Error::WindowNotFound)
@@ -12,6 +13,10 @@ pub fn window() -> Result<Window> {
 
 pub fn document() -> Result<Document> {
     window()?.document().ok_or(Error::DocumentNotFound)
+}
+
+pub fn location() -> Result<Location> {
+    document()?.location().ok_or(Error::LocationNotFound)
 }
 
 pub fn get_element_by_id<T: JsCast>(id: &str) -> Result<T> {

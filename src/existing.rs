@@ -1,6 +1,6 @@
 use js_sys::Reflect;
 use wasm_bindgen::{throw_str, JsCast, JsValue, UnwrapThrowExt};
-use web_sys::{Document, Window};
+use web_sys::{Document, Location, Window};
 
 pub trait JsObjectAccess {
     fn get(&self, property: impl Into<JsValue>) -> JsValue;
@@ -23,6 +23,10 @@ pub fn window() -> Window {
 
 pub fn document() -> Document {
     window().document().expect_throw("Window should have a document")
+}
+
+pub fn location() -> Location {
+    document().location().expect_throw("Document should have a location")
 }
 
 pub fn get_element_by_id<T: JsCast>(id: &str) -> T {
