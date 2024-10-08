@@ -32,31 +32,24 @@ pub fn location() -> Location {
 pub fn get_element_by_id<T: JsCast>(id: &str) -> T {
     document()
         .get_element_by_id(id)
-        .unwrap_or_else(|| throw_str(&format!("Document should have an element with id = `{}`", id)))
+        .unwrap_or_else(|| throw_str(&format!("Document should have an element with id = `{id}`")))
         .dyn_into::<T>()
-        .unwrap_or_else(|_| throw_str(&format!("Element with id = `{}` should cast to target type", id)))
+        .unwrap_or_else(|_| throw_str(&format!("Element with id = `{id}` should cast to target type")))
 }
 
 pub fn select_element<T: JsCast>(selectors: &str) -> T {
     document()
         .query_selector(selectors)
-        .unwrap_or_else(|value| {
-            throw_str(&format!(
-                "Specified selectors = `{}` is invalid: {:?}",
-                selectors, value
-            ))
-        })
+        .unwrap_or_else(|value| throw_str(&format!("Specified selectors = `{selectors}` is invalid: {value:?}")))
         .unwrap_or_else(|| {
             throw_str(&format!(
-                "Document should have an element accessible by selectors = `{}`",
-                selectors
+                "Document should have an element accessible by selectors = `{selectors}`"
             ))
         })
         .dyn_into::<T>()
         .unwrap_or_else(|element| {
             throw_str(&format!(
-                "Element to select by `{}` should cast to target type: {:?}",
-                selectors, element
+                "Element to select by `{selectors}` should cast to target type: {element:?}"
             ))
         })
 }
