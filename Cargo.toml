@@ -1,6 +1,6 @@
 [package]
 name = "wasm-dom"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
     "Alexander Mescheryakov <freecoder.xx@gmail.com>",
     "Noogen Team <info.noogen@gmail.com>",
