@@ -32,5 +32,5 @@ pub fn select_element<T: JsCast>(selectors: &str) -> Result<T> {
         .map_err(|_| Error::InvalidSelectors(selectors.into()))?
         .ok_or_else(|| Error::ElementNotFound(selectors.into()))?
         .dyn_into::<T>()
-        .map_err(|element| Error::ElementNotCast(element))
+        .map_err(Error::ElementNotCast)
 }

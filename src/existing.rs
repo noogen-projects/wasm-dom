@@ -1,5 +1,5 @@
 use js_sys::Reflect;
-use wasm_bindgen::{throw_str, JsCast, JsValue, UnwrapThrowExt};
+use wasm_bindgen::{JsCast, JsValue, UnwrapThrowExt, throw_str};
 use web_sys::{Document, Location, Window};
 
 pub trait JsObjectAccess {
