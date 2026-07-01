@@ -11,6 +11,9 @@ pub enum Error {
     #[error("Document not found")]
     DocumentNotFound,
 
+    #[error("Body not found")]
+    BodyNotFound,
+
     #[error("Location not found")]
     LocationNotFound,
 

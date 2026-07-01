@@ -1,6 +1,6 @@
 use js_sys::Reflect;
 use wasm_bindgen::{JsCast, JsValue, UnwrapThrowExt, throw_str};
-use web_sys::{Document, Location, Window};
+use web_sys::{Document, Element, HtmlElement, Location, Window};
 
 pub trait JsObjectAccess {
     fn get(&self, property: impl Into<JsValue>) -> JsValue;
@@ -25,6 +25,10 @@ pub fn document() -> Document {
     window().document().expect_throw("Window should have a document")
 }
 
+pub fn body() -> HtmlElement {
+    document().body().expect_throw("Document should have a body")
+}
+
 pub fn location() -> Location {
     document().location().expect_throw("Document should have a location")
 }
@@ -37,7 +41,7 @@ pub fn get_element_by_id<T: JsCast>(id: &str) -> T {
         .unwrap_or_else(|_| throw_str(&format!("Element with id = `{id}` should cast to target type")))
 }
 
-pub fn select_element<T: JsCast>(selectors: &str) -> T {
+pub fn select_element(selectors: &str) -> Element {
     document()
         .query_selector(selectors)
         .unwrap_or_else(|value| throw_str(&format!("Specified selectors = `{selectors}` is invalid: {value:?}")))
@@ -46,10 +50,12 @@ pub fn select_element<T: JsCast>(selectors: &str) -> T {
                 "Document should have an element accessible by selectors = `{selectors}`"
             ))
         })
-        .dyn_into::<T>()
-        .unwrap_or_else(|element| {
-            throw_str(&format!(
-                "Element to select by `{selectors}` should cast to target type: {element:?}"
-            ))
-        })
+}
+
+pub fn select_element_as<T: JsCast>(selectors: &str) -> T {
+    select_element(selectors).dyn_into::<T>().unwrap_or_else(|element| {
+        throw_str(&format!(
+            "Element to select by `{selectors}` should cast to target type: {element:?}"
+        ))
+    })
 }
