@@ -11,6 +11,9 @@ pub enum Error {
     #[error("Document not found")]
     DocumentNotFound,
 
+    #[error("Document root element not found")]
+    DocumentElementNotFound,
+
     #[error("Body not found")]
     BodyNotFound,
 
@@ -28,4 +31,13 @@ pub enum Error {
 
     #[error("Could not cast element {0:?}")]
     ElementNotCast(Element),
+
+    #[error("Failed to setTimeout")]
+    FailedToSetTimeout,
+
+    #[error("Failed to request animation frame")]
+    FailedToRequestAnimationFrame,
+
+    #[error("Failed to wait for the next animation frame")]
+    FailedToWaitNextAnimationFrame,
 }

@@ -14,6 +14,7 @@ keywords = ["noogen", "web", "helpers", "dom"]
 categories = ["web-programming", "wasm"]
 
 [dependencies]
+futures = "0.3"
 thiserror = "2.0"
 js-sys = "0.3"
 wasm-bindgen = "0.2"
@@ -21,8 +22,10 @@ wasm-bindgen = "0.2"
 [dependencies.web-sys]
 version = "0.3"
 features = [
+    "AddEventListenerOptions",
     "Document",
     "Element",
+    "Event",
     "HtmlElement",
     "WebSocket",
     "Window",

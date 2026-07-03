@@ -1,21 +1,9 @@
-use js_sys::Reflect;
-use wasm_bindgen::{JsCast, JsValue, UnwrapThrowExt, throw_str};
+pub mod access;
+
+use wasm_bindgen::{JsCast, UnwrapThrowExt, throw_str};
 use web_sys::{Document, Element, HtmlElement, Location, Window};
 
-pub trait JsObjectAccess {
-    fn get(&self, property: impl Into<JsValue>) -> JsValue;
-    fn set(&self, property: impl Into<JsValue>, value: impl Into<JsValue>) -> bool;
-}
-
-impl JsObjectAccess for JsValue {
-    fn get(&self, property: impl Into<JsValue>) -> JsValue {
-        Reflect::get(self, &property.into()).expect_throw("Target should be an Object")
-    }
-
-    fn set(&self, property: impl Into<JsValue>, value: impl Into<JsValue>) -> bool {
-        Reflect::set(self, &property.into(), &value.into()).expect_throw("Target should be an Object")
-    }
-}
+pub use self::access::{Cast, JsObjectAccess};
 
 pub fn window() -> Window {
     super::window().expect_throw("Should have a window in this context")
@@ -23,6 +11,12 @@ pub fn window() -> Window {
 
 pub fn document() -> Document {
     window().document().expect_throw("Window should have a document")
+}
+
+pub fn document_element() -> Element {
+    document()
+        .document_element()
+        .expect_throw("Document should have a root element")
 }
 
 pub fn body() -> HtmlElement {
@@ -52,7 +46,7 @@ pub fn select_element(selectors: &str) -> Element {
         })
 }
 
-pub fn select_element_as<T: JsCast>(selectors: &str) -> T {
+pub fn select_element_cast<T: JsCast>(selectors: &str) -> T {
     select_element(selectors).dyn_into::<T>().unwrap_or_else(|element| {
         throw_str(&format!(
             "Element to select by `{selectors}` should cast to target type: {element:?}"
