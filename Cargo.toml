@@ -1,6 +1,6 @@
 [package]
 name = "wasm-dom"
-version = "2.0.0"
+version = "2.1.0"
 authors = [
     "Alexander Mescheryakov <freecoder.xx@gmail.com>",
     "Noogen Team <info.noogen@gmail.com>",
@@ -27,7 +27,8 @@ features = [
     "Element",
     "Event",
     "HtmlElement",
+    "Location",
+    "NodeList",
     "WebSocket",
     "Window",
-    "Location",
 ]
